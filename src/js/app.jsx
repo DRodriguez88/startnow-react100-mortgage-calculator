@@ -7,7 +7,8 @@ export default class App extends React.Component {
     this.state = {
       balance: 0,
       rate: 0,
-      term: 0,
+      term: 30,
+      payment: 0,
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -16,17 +17,24 @@ export default class App extends React.Component {
     this.setState({ 
       [e.target.name]: e.target.value
     }, () => console.log(this.state))
-    console.log(e.target.value)
   }
 
   calculatePayment(balance, rate, term){
-    let top = rate*Math.pow((1+rate), term);
+    balance = parseFloat(this.state.balance);
+    rate = parseFloat(this.state.rate);
+    rate /= 100;
+    rate /= 12;   
+    term = parseFloat(this.state.term)*12;
+    let top = rate*Math.pow((1+rate),term);
     let bottom = Math.pow((1+rate), term) - 1;
     let middle = top/bottom;
     let monthlyPay = balance*middle;
-    let payment = monthlyPay + "is your payment.";
-    return payment;
-    }  
+    monthlyPay = Math.round(100*monthlyPay)/100
+
+    this.setState({
+      payment: monthlyPay,
+    })
+  }  
 
   render() {
     return (
@@ -38,8 +46,10 @@ export default class App extends React.Component {
             <option value="15">15</option>
             <option value="30">30</option>
           </select>
-          <button name="submit"/>
+          <button name="submit" onClick={this.calculatePayment}/>
           <div name="output">
+          {this.calculatePayment = this.calculatePayment.bind(this)}
+          Your payment is ${this.state.payment}.
           </div>
       </div>
     );
