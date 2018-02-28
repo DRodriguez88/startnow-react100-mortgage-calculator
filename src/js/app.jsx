@@ -21,9 +21,9 @@ export default class App extends React.Component {
 
   calculatePayment(balance, rate, term){
     balance = parseFloat(this.state.balance);
-    rate = parseFloat(this.state.rate);
-    rate /= 100;
-    rate /= 12;   
+    rate = parseFloat(this.state.rate) /100 /12;
+    // rate /= 100;
+    // rate /= 12;   
     term = parseFloat(this.state.term)*12;
     let top = rate*Math.pow((1+rate),term);
     let bottom = Math.pow((1+rate), term) - 1;
@@ -39,7 +39,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className='container'>
-          <h1>Mortgage Calculator</h1>      
+          <h3>Mortgage Calculator</h3>      
           <input name="balance" type="number" defaultValue={this.state.balance} onChange={this.handleChange} placeholder="Balance"></input>
           <input name="rate" type="number" step="0.01" defaultValue={this.state.rate} onChange={this.handleChange} placeholder="Rate"></input>
           <select name="term" defaultValue="30" onChange={this.handleChange}>
@@ -47,9 +47,9 @@ export default class App extends React.Component {
             <option value="30">30</option>
           </select>
           <button name="submit" onClick={this.calculatePayment}/>
-          <div name="output">
+          <div name="output" id="output">
           {this.calculatePayment = this.calculatePayment.bind(this)}
-          Your payment is ${this.state.payment}.
+          ${this.state.payment} is your payment.
           </div>
       </div>
     );
