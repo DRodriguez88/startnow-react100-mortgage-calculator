@@ -39,14 +39,17 @@ export default class App extends React.Component {
   render() {
     return (
       <div className='container'>
-          <h3>Mortgage Calculator</h3>      
+          <h3>Mortgage Calculator</h3> 
+          Loan Balance     
           <input name="balance" type="number" defaultValue={this.state.balance} onChange={this.handleChange} placeholder="Balance"></input>
+          Interest Rate (%)
           <input name="rate" type="number" step="0.01" defaultValue={this.state.rate} onChange={this.handleChange} placeholder="Rate"></input>
+          Loan Term (years)
           <select name="term" defaultValue="30" onChange={this.handleChange}>
             <option value="15">15</option>
             <option value="30">30</option>
           </select>
-          <button name="submit" onClick={this.calculatePayment}/>
+          <button name="submit" onClick={this.calculatePayment} >Calculate</button>
           <div name="output" id="output">
           {this.calculatePayment = this.calculatePayment.bind(this)}
           ${this.state.payment} is your payment.
